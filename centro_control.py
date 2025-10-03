@@ -18,9 +18,9 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as servidor:
             if not data:
                 break
             if data.startswith("REPORTE:"):
-                reporte = data.split("REPORT:")[1].strip()
+                reporte = data.split("REPORTE:")[1].strip()
                 historial.append(reporte)
-                conn.sendall("Report almacenado. Todo bajo control, Estación.\n".encode('utf-8'))
+                conn.sendall("Reporte almacenado. Todo bajo control, Estación.\n".encode('utf-8'))
             elif data.strip() == "CONSULTAR":
                 registros = "=== HISTORIAL DE COMUNICACIONES ===\n" + "\n".join(historial)
                 conn.sendall(registros.encode('utf-8'))
