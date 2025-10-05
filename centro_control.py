@@ -22,8 +22,11 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as servidor:
                 historial.append(reporte)
                 conn.sendall("Reporte almacenado. Todo bajo control, Estación.\n".encode('utf-8'))
             elif data.strip() == "CONSULTAR":
-                registros = "=== HISTORIAL DE COMUNICACIONES ===\n" + "\n".join(historial)
+                if historial:
+                    registros = "=== HISTORIAL DE COMUNICACIONES ===\n" + "\n".join(historial)
+                else:
+                    registros = "=== HISTORIAL DE COMUNICACIONES ===\n" + "(No hay reportes todavía)\n"
                 conn.sendall(registros.encode('utf-8'))
             elif data.strip() == "MISION_COMPLETA":
-                conn.sendall("Comunicación finalizada. Buen trabajo, astrounautas.\n".encode('utf-8'))
+                conn.sendall("Comunicación finalizada. Buen trabajo, astronautas.\n".encode('utf-8'))
                 break
