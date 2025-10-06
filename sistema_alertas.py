@@ -12,7 +12,8 @@ with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as servidor:
         data, addr = servidor.recvfrom(1024)
         mensaje = data.decode('utf-8')
         if mensaje == "base_segura":
-            print("Sistema: Modo emergencia desactivo. Mantente seguro allá arriba.")
+            respuesta = f'Sistema: Modo emergencia desactivado. Mantente seguro allá arriba.'
+            servidor.sendto(respuesta.encode('utf-8'), addr)
             break
         respuesta = f'Alerta: CONFIRMADO: {mensaje}'
-        servidor.sendto(respuesta.encode('utf-8', addr))
+        servidor.sendto(respuesta.encode('utf-8'), addr)
