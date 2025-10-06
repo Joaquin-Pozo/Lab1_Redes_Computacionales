@@ -44,11 +44,13 @@ while opcion != 3:
                 print("\n=== ALERTAS: Conectado el Sistema de Alertas (UDP) ===\n")
                 while True:
                     mensaje = input("Emergencia> ")
-                    cliente_udp.sendto(mensaje.encode('utf-8'), (HOST, udp_port))
-                    print(cliente_udp.recv(1024).decode('utf-8'))
-
                     if mensaje.strip() == "base_segura":
+                        cliente_udp.sendto(mensaje.encode('utf-8'), (HOST, udp_port))
+                        print(cliente_udp.recv(1024).decode('utf-8'))
                         break
+                    
+                    cliente_udp.sendto(mensaje.encode('utf-8'), (HOST, udp_port))
+                    print(f"Alerta: {cliente_udp.recv(1024).decode('utf-8')}")          
                     
         # No se pudo conectar el servidor UDP -> Muestra error
         except ConnectionRefusedError:

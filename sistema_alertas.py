@@ -15,5 +15,5 @@ with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as servidor:
             respuesta = f'Sistema: Modo emergencia desactivado. Mantente seguro allá arriba.'
             servidor.sendto(respuesta.encode('utf-8'), addr)
             break
-        respuesta = f'Alerta: CONFIRMADO: {mensaje}'
+        respuesta = f'CONFIRMADO: {mensaje}'
         servidor.sendto(respuesta.encode('utf-8'), addr)
