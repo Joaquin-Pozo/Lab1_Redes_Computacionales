@@ -41,20 +41,26 @@ while opcion != 3:
         try:
             # Se conecta al servidor UDP
             with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as cliente_udp:
+                # Espera un max de 3 segundos por respuesta 
+                cliente_udp.settimeout(2.0)
                 print("\n=== ALERTAS: Conectado el Sistema de Alertas (UDP) ===\n")
                 while True:
                     mensaje = input("Emergencia> ")
+                    cliente_udp.sendto(mensaje.encode('utf-8'), (HOST, udp_port))
+
+                    try:
+                        print(f"Alerta: {cliente_udp.recv(1024).decode('utf-8')}")
+                    
+                    # Pasó el tiempo de espera -> No se pudo conectar al servidor
+                    except socket.timeout:
+                        print("No se pudo conectar con el Sistema de Alertas.\n")
+                        break
+
                     if mensaje.strip() == "base_segura":
-                        cliente_udp.sendto(mensaje.encode('utf-8'), (HOST, udp_port))
                         print(cliente_udp.recv(1024).decode('utf-8'))
                         break
-                    
-                    cliente_udp.sendto(mensaje.encode('utf-8'), (HOST, udp_port))
-                    print(f"Alerta: {cliente_udp.recv(1024).decode('utf-8')}")          
-                    
-        # No se pudo conectar el servidor UDP -> Muestra error
-        except ConnectionRefusedError:
-            print("No se pudo conectar al Sistema de Alertas.\n")
+        except Exception:
+            pass
             
     elif opcion == 3:
         # Cierra las conexiones de ambos servidores (en caso de que hayan quedado abiertas)
