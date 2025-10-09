@@ -41,8 +41,8 @@ while opcion != 3:
         try:
             # Se conecta al servidor UDP
             with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as cliente_udp:
-                # Espera un max de 3 segundos por respuesta 
-                cliente_udp.settimeout(2.0)
+                # Espera un max de 1 segundo por respuesta 
+                cliente_udp.settimeout(1.0)
                 print("\n=== ALERTAS: Conectado el Sistema de Alertas (UDP) ===\n")
                 while True:
                     mensaje = input("Emergencia> ")
@@ -59,6 +59,7 @@ while opcion != 3:
                     if mensaje.strip() == "base_segura":
                         print(cliente_udp.recv(1024).decode('utf-8'))
                         break
+        # Omite error -> Confirmacion de conexion realizada por socket.timeout
         except Exception:
             pass
             

@@ -24,11 +24,17 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as servidor:
                 conn.sendall("Reporte almacenado. Todo bajo control, Estación.\n".encode('utf-8'))
             # Muestra los reportes almacenados
             elif data.strip() == "CONSULTAR":
-                if historial:
-                    registros = "=== HISTORIAL DE COMUNICACIONES ===\n" + "\n".join(historial)
+                registros = "=== HISTORIAL DE COMUNICACIONES ===\n"
+                if historial:                    
+                    i = 1
+                    # Lista los reportes almacenados en el historial
+                    for reporte in historial:
+                        registros = registros + f'{i}. {reporte}\n'
+                        i += 1
                 # Si no hay nada almacenado aun, muestra mensaje de aviso
                 else:
-                    registros = "=== HISTORIAL DE COMUNICACIONES ===\n" + "(No hay reportes todavía)\n"
+                    registros = registros + f'(No hay reportes todavía)\n'
+
                 conn.sendall(registros.encode('utf-8'))
             # Finaliza la ejecucion del servidor
             elif data.strip() == "MISION_COMPLETA":
@@ -36,4 +42,4 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as servidor:
                 break
             # Si el cliente envia un mensaje distinto, avisa error
             else:
-                conn.sendall("Mensaje inválido.\nUtilice 'REPORTE:', 'CONSULTAR' o 'MISION_COMPLETA'.\n".encode('utf-8'))
+                conn.sendall("Mensaje inválido.\nUtilice: [REPORTE: || CONSULTAR || MISION_COMPLETA].\n".encode('utf-8'))
