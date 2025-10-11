@@ -11,11 +11,11 @@ El objetivo es simular la interacción entre una ***Estación Espacial Internaci
 
 ---
 
-### Instrucciones para ejecutar cada programa (aplicable solo para Sistemas Operativos Unix).
+### Instrucciones para ejecutar cada programa (Unix/Linux).
 
-1. Abre las tres terminales en el directorio del proyecto.
+1. Abre tres terminales en el directorio del proyecto.
 
-2. En la primera tterminal, ejecuta el servidor TCP:
+2. En la primera terminal, ejecuta el servidor TCP:
 ```bash
 python3 centro_control.py
 ```
