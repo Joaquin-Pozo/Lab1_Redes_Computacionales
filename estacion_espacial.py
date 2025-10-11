@@ -17,7 +17,13 @@ while opcion != 3:
     print("1. Conectarse al Centro de Control (TCP)")
     print("2. Conectarse al Sistema de Alertas (UDP)")
     print("3. Finalizar la ejecución del programa")
-    opcion = int(input())
+    
+    try:
+        opcion = int(input())
+    except ValueError:
+        print("\nEl valor ingresado no es válido. Ingrese un número del 1 al 3.\n")
+        continue
+
     if opcion == 1:
         # Se conecta al servidor TCP
         try:
@@ -92,4 +98,4 @@ while opcion != 3:
         break
 
     else:
-        print("Opción inválida. Intente nuevamente\n")
+        print("\nOpción inválida. Ingrese una opción del 1 al 3.\n")

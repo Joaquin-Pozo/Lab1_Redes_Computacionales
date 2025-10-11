@@ -13,6 +13,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as servidor:
 
     conn, addr = servidor.accept()
     with conn:
+        print(f"CONTROL: Conectado con {addr}")
         while True:
             data = conn.recv(1024).decode('utf-8')
             if not data:
